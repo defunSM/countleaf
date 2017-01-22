@@ -11,7 +11,6 @@ docopt==0.6.2
 environ==1.0
 gunicorn==19.6.0
 Jinja2==2.9.4
-louis==3.0.0
 lxml==3.7.2
 Mako==1.0.6
 MarkupSafe==0.23
