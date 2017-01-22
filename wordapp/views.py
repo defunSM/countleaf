@@ -29,7 +29,7 @@ def index(request):
 def search(request):
     if request.method == 'POST':
         search_id = request.POST.get('textfield', None)
-        download()
+        download("punkt")
         t0 = time()
 
         array = Counter(word_tokenize(search_id.lower()))
