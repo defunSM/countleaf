@@ -1,6 +1,5 @@
 alembic==0.8.10
 appdirs==1.4.0
-Archey3==0.4
 beautifulsoup4==4.5.3
 bokeh==0.12.3
 Brlapi==0.6.5
