@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from nltk import word_tokenize
+from nltk import download
 from collections import Counter
 from time import time
 
@@ -28,6 +29,7 @@ def index(request):
 def search(request):
     if request.method == 'POST':
         search_id = request.POST.get('textfield', None)
+        download()
         t0 = time()
 
         array = Counter(word_tokenize(search_id.lower()))
