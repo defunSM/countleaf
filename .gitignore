@@ -3,3 +3,4 @@ venv
 staticfiles
 .env
 wordapp/settings_secret.py
+countleaf/settings_secret.py
