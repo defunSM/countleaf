@@ -45,7 +45,6 @@ def search(request):
         lettersperword = round(letter / words, 3)
         wordspersentence = round(words / sentences, 3)
 
-
         context = {
             "words": words,
             "letters": letter,
@@ -54,7 +53,7 @@ def search(request):
             "wordspersentence": wordspersentence,
             "method": "Text"
 
-            }
+        }
 
         t1 = round(time() - t0, 3)
         return render(request, 'wordapp/results.html', context)
@@ -65,8 +64,25 @@ def search(request):
 def filesearch(request):
     if request.method == 'POST':
 
+        text = request.FILES["myfile"].read()
+
+        array = Counter(word_tokenize(str(text.lower())))
+        total = count_total(array)
+        display = frequency_of_words(array, total)
+
+        letter = len(letters(str(text)))
+        words = len(array)
+        sentences = len(text.decode().split("\n"))
+        lettersperword = round(letter / words, 3)
+        wordspersentence = round(words / sentences, 3)
+
         context = {
-            "method": "File",
+            "words": words,
+            "letters": letter,
+            "sentences": sentences,
+            "lettersperword": lettersperword,
+            "wordspersentence": wordspersentence,
+            "method": "File"
         }
 
         return render(request, 'wordapp/results.html', context)
