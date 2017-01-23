@@ -63,8 +63,9 @@ def search(request):
 
 def filesearch(request):
     if request.method == 'POST':
-
+        download("punkt")
         text = request.FILES["myfile"].read()
+        t1 = time()
 
         array = Counter(word_tokenize(str(text.lower())))
         total = count_total(array)
@@ -85,4 +86,5 @@ def filesearch(request):
             "method": "File"
         }
 
+        t1 = round(time() - t0, 3)
         return render(request, 'wordapp/results.html', context)
