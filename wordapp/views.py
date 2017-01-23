@@ -10,6 +10,9 @@ from time import time
 from .models import Question, Choice
 # Create your views here.
 
+def letters(input):
+    return ''.join(filter(str.isalpha, input))
+
 def count_total(array):
     total = 0
     for key, value in array.items():
@@ -35,8 +38,14 @@ def search(request):
         array = Counter(word_tokenize(search_id.lower()))
         total = count_total(array)
         display = frequency_of_words(array, total)
+        context = {
+            "words": len(array),
+            "letters": len(letters(search_id)),
+            "sentences": len(search_id.split("\n"))
+            }
 
         t1 = round(time() - t0, 3)
-        return HttpResponse(str(array) + "<br/>Words: " + str(total) + "<br/><br/>" + display + "<br/>Time: " + str(t1) + "s")
+        return render(request, 'wordapp/results.html', context)
+        # return HttpResponse(str(array) + "<br/>Words: " + str(total) + "<br/><br/>" + display + "<br/>Time: " + str(t1) + "s")
     else:
         return render(request, 'wordapp/form.html')
