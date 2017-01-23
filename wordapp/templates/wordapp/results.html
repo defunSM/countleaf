@@ -36,11 +36,13 @@
         </nav>
         <div class="well well-lg result">
             <!-- the PLACEHOLDER should be a variable of what type of input the user requested data from (text, a document, pdf, etc.) -->
-            <h4>Your <span>PLACEHOLDER</span> contained: </h4>
+            <h4>Your <span>{{ method }}</span> contained: </h4>
             <!-- 100's in the spans are also placeholders. should be variables that display data -->
             <p><span id="words">{{ words }} </span> words</p>
             <p><span id="letters">{{ letters }} </span> letters</p>
             <p><span id="sentences">{{ sentences }} </span> sentences</p>
+            <p><span id="sentences">{{ lettersperword }} </span> letters/word</p>
+            <p><span id="sentences">{{ wordspersentence }} </span> words/sentence</p>
         </div>
     </div>
 </body>

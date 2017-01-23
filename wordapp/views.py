@@ -38,10 +38,22 @@ def search(request):
         array = Counter(word_tokenize(search_id.lower()))
         total = count_total(array)
         display = frequency_of_words(array, total)
+
+        letter = len(letters(search_id))
+        words = len(array)
+        sentences = len(search_id.split("\n"))
+        lettersperword = round(letter / words, 3)
+        wordspersentence = round(words / sentences, 3)
+
+
         context = {
-            "words": len(array),
-            "letters": len(letters(search_id)),
-            "sentences": len(search_id.split("\n"))
+            "words": words,
+            "letters": letter,
+            "sentences": sentences,
+            "lettersperword": lettersperword,
+            "wordspersentence": wordspersentence,
+            "method": "Text"
+
             }
 
         t1 = round(time() - t0, 3)
@@ -49,3 +61,12 @@ def search(request):
         # return HttpResponse(str(array) + "<br/>Words: " + str(total) + "<br/><br/>" + display + "<br/>Time: " + str(t1) + "s")
     else:
         return render(request, 'wordapp/form.html')
+
+def filesearch(request):
+    if request.method == 'POST':
+
+        context = {
+            "method": "File",
+        }
+
+        return render(request, 'wordapp/results.html', context)

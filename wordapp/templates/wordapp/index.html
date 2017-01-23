@@ -49,23 +49,26 @@
         <p>Accepted file formats include: text (.txt) and PDF</p>
         <div class="row">
             <div class="col-lg-12">
-                <div class="well well-lg upload">
-                    <label class="custom-file ">
-                        <input type="file" id="file " class="custom-file-input ">
-                        <span class="custom-file-control "></span>
-                        <hr class="stats">
-                    </label>
-                    <br>
-                    <button type="submit">Upload file</button>
-                </div>
+              <div class="well well-lg upload">
+                <form method="POST" action="filesearch/">
+                  {% csrf_token %}
+                  <label class="custom-file ">
+                    <input type="file" id="file " class="custom-file-input " name="filefield">
+                    <hr class="stats">
+                  </label>
+                  <br>
+                  <button type="submit">Upload file</button>
+                </form>
+              </div>
             </div>
             <h4>Or you can directly input your text below: </h4>
             <div class="row ">
                 <div class="col-lg-12 ">
                     <div class="well well-lg upload ">
                         <label for="comment">Text</label>
-                        <form method="POST" action="">
-                            <textarea class="form-control " rows="5 " id="comment "></textarea>
+                        <form method="POST" action="search/">
+                          {% csrf_token %}
+                            <textarea class="form-control " rows="5 " id="comment " name="textfield"></textarea>
                             <hr class="stats">
                             <button type="submit">Upload text</button>
                         </form>
