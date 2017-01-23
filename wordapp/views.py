@@ -65,7 +65,7 @@ def filesearch(request):
     if request.method == 'POST':
         download("punkt")
         text = request.FILES["myfile"].read()
-        t1 = time()
+        t0 = time()
 
         array = Counter(word_tokenize(str(text.lower())))
         total = count_total(array)
