@@ -35,7 +35,7 @@ def search(request):
         download("punkt")
         t0 = time()
 
-        array = Counter(word_tokenize(search_id.lower()))
+        array = Counter(search_id.lower().split(" "))
         total = count_total(array)
         display = frequency_of_words(array, total)
 
@@ -72,7 +72,7 @@ def filesearch(request):
         display = frequency_of_words(array, total)
 
         letter = len(letters(str(text)))
-        words = len(array)
+        words = len(text.decode().split(" "))
         sentences = len(text.decode().split("\n"))
         lettersperword = round(letter / words, 3)
         wordspersentence = round(words / sentences, 3)
