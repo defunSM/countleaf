@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from nltk import word_tokenize
 from nltk import download
 from collections import Counter
+from textract import process
 from time import time
 
 
@@ -42,20 +43,22 @@ def search(request):
         letter = len(letters(search_id))
         words = len(array)
         sentences = len(search_id.split("\n"))
-        lettersperword = round(letter / words, 3)
-        wordspersentence = round(words / sentences, 3)
+        lettersperword = round(letter / words, 1)
+        wordspersentence = round(words / sentences, 1)
 
+        t1 = round(time() - t0, 3)
         context = {
             "words": words,
             "letters": letter,
             "sentences": sentences,
             "lettersperword": lettersperword,
             "wordspersentence": wordspersentence,
+            "time": t1,
             "method": "Text"
 
         }
 
-        t1 = round(time() - t0, 3)
+
         return render(request, 'wordapp/results.html', context)
         # return HttpResponse(str(array) + "<br/>Words: " + str(total) + "<br/><br/>" + display + "<br/>Time: " + str(t1) + "s")
     else:
@@ -64,27 +67,47 @@ def search(request):
 def filesearch(request):
     if request.method == 'POST':
         download("punkt")
-        text = request.FILES["myfile"].read()
-        t0 = time()
 
-        array = Counter(word_tokenize(str(text.lower())))
-        total = count_total(array)
-        display = frequency_of_words(array, total)
+        if ".pdf" in str(request.FILES["myfile"]):
+            text = request.FILES["myfile"].read()
+            t0 = time()
 
-        letter = len(letters(str(text)))
-        words = len(text.decode().split(" "))
-        sentences = len(text.decode().split("\n"))
-        lettersperword = round(letter / words, 3)
-        wordspersentence = round(words / sentences, 3)
+            array = Counter(word_tokenize(str(text.lower())))
+            total = count_total(array)
+            display = frequency_of_words(array, total)
 
+            letter = "N/A"
+            words = "N/A"
+            sentences = "N/A"
+            lettersperword = "N/A"
+            wordspersentence = "N/A"
+
+
+        else:
+
+            text = request.FILES["myfile"].read()
+            t0 = time()
+
+            array = Counter(word_tokenize(str(text.lower())))
+            total = count_total(array)
+            display = frequency_of_words(array, total)
+
+            letter = len(letters(str(text)))
+            words = len(text.decode().split(" "))
+            sentences = len(text.decode().split("\n"))
+            lettersperword = round(letter / words, 1)
+            wordspersentence = round(words / sentences, 1)
+
+        t1 = round(time() - t0, 3)
         context = {
             "words": words,
             "letters": letter,
             "sentences": sentences,
             "lettersperword": lettersperword,
             "wordspersentence": wordspersentence,
-            "method": "File"
+            "time": t1,
+            "method": "file " + "(" + str(request.FILES["myfile"]) + ")"
         }
 
-        t1 = round(time() - t0, 3)
+
         return render(request, 'wordapp/results.html', context)
