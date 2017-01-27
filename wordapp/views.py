@@ -45,6 +45,7 @@ def search(request):
         sentences = len(search_id.split("\n"))
         lettersperword = round(letter / words, 1)
         wordspersentence = round(words / sentences, 1)
+        mostfrequentword = list(array.keys())[0]
 
         t1 = round(time() - t0, 3)
         context = {
@@ -53,6 +54,7 @@ def search(request):
             "sentences": sentences,
             "lettersperword": lettersperword,
             "wordspersentence": wordspersentence,
+            "mostfrequentword": mostfrequentword,
             "time": t1,
             "method": "Text"
 
@@ -82,7 +84,6 @@ def filesearch(request):
             lettersperword = "N/A"
             wordspersentence = "N/A"
 
-
         else:
 
             text = request.FILES["myfile"].read()
@@ -97,6 +98,7 @@ def filesearch(request):
             sentences = len(text.decode().split("\n"))
             lettersperword = round(letter / words, 1)
             wordspersentence = round(words / sentences, 1)
+            mostfrequentword = list(array.keys())[0]
 
         t1 = round(time() - t0, 3)
         context = {
@@ -105,6 +107,7 @@ def filesearch(request):
             "sentences": sentences,
             "lettersperword": lettersperword,
             "wordspersentence": wordspersentence,
+            "mostfrequentword": mostfrequentword,
             "time": t1,
             "method": "file " + "(" + str(request.FILES["myfile"]) + ")"
         }
