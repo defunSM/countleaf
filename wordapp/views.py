@@ -1,12 +1,14 @@
 #!/usr/bin/env python
+import requests as req
+
 from django.shortcuts import render
 from django.http import HttpResponse
-from nltk import word_tokenize
+from nltk import word_tokenize, sent_tokenize
 from nltk import download
 from collections import Counter
 from textract import process
 from time import time
-
+from bs4 import BeautifulSoup
 
 from .models import Question, Choice
 # Create your views here.
@@ -112,5 +114,16 @@ def filesearch(request):
             "method": "file " + "(" + str(request.FILES["myfile"]) + ")"
         }
 
-
         return render(request, 'wordapp/results.html', context)
+
+def urlsearch(request):
+    search_id = request.POST.get('url', None)
+
+    resp = req.get(str(search_id))
+    soup = BeautifulSoup(resp.text, 'lxml')
+    array = []
+    for h in soup.find_all('p'):
+        array.append(word_tokenize(str(h)))
+
+    sentences = len(array)
+    return HttpResponse(str(array))

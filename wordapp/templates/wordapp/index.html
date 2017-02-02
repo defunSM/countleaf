@@ -61,6 +61,21 @@
                 </form>
               </div>
             </div>
+            <h4>Or enter an url: </h4>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="well well-lg upload">
+                  <label for="comment">Url</label>
+                  <form method="POST" action="urlsearch/">
+                    {% csrf_token %}
+                    <input name="url"></input>
+                    <hr class="stats">
+                    <button type="submit">Analyze Site</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
             <h4>Or you can directly input your text below: </h4>
             <div class="row ">
                 <div class="col-lg-12 ">
