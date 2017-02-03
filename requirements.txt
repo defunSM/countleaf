@@ -47,3 +47,4 @@ virtualenvwrapper==4.7.2
 whitenoise==3.2
 youtube-dl==2017.1.16
 textract==1.5.0
+pyenchant==1.6.8
