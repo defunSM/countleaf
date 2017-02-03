@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import requests as req
+import enchant
 
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -119,11 +120,45 @@ def filesearch(request):
 def urlsearch(request):
     search_id = request.POST.get('url', None)
 
+    t0 = time()
     resp = req.get(str(search_id))
     soup = BeautifulSoup(resp.text, 'lxml')
     array = []
+    wordarray = []
+    letters = 0
+    d = enchant.request_pwl_dict("usa.txt")
+
+    # Array does not exclude the tags
+
     for h in soup.find_all('p'):
         array.append(word_tokenize(str(h)))
 
+
     sentences = len(array)
-    return HttpResponse(str(array))
+
+    for x in array:
+        for i in x:
+            if d.check(i.lower()):
+                count = len(i)
+                if count != 1 or i == 'i' or i == 'I' or i == 'A' or i == 'a':
+                    wordarray.append(i.lower())
+                    letters += len(i)
+
+
+    words = len(wordarray)
+
+    mostfrequentword = list(Counter(wordarray).keys())[0]
+
+
+    t1 = round(time() - t0, 3)
+    context = {
+        "words": words,
+        "letters": letters,
+        "sentences": sentences,
+        "lettersperword": round(letters/words, 1),
+        "wordspersentence": round(words/sentences, 1),
+        "mostfrequentword": mostfrequentword,
+        "time": t1,
+        "method": "Url " + "(" + str(search_id) + ")",
+    }
+    return render(request, 'wordapp/results.html', context)
