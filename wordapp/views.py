@@ -119,6 +119,7 @@ def filesearch(request):
 
 def urlsearch(request):
     search_id = request.POST.get('url', None)
+    download("punkt")
 
     t0 = time()
     resp = req.get(str(search_id))
