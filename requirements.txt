@@ -20,7 +20,7 @@ olefile==0.44
 packaging==16.8
 pandas==0.19.2
 pbr==1.10.0
-Pillow==4.0.0
+Pillow==6.2.0
 powerline-status==2.5
 psutil==5.0.1
 psycopg2==2.6.2
