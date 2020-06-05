@@ -6,7 +6,7 @@ bs4==0.0.1
 chardet==2.3.0
 Cython==0.25.2
 dj-database-url==0.4.1
-Django==1.10.4
+Django==1.11.29
 docopt==0.6.2
 environ==1.0
 gunicorn==19.6.0
