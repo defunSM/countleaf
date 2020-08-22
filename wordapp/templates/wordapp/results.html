@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Results | Countleaf</title>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'wordapp/css/results.css' %}">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
+</head>
+
+<body>
+    <div class="dad">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Countleaf</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="">About</a></li>
+                        <li><a href="">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="well well-lg result">
+            <!-- the PLACEHOLDER should be a variable of what type of input the user requested data from (text, a document, pdf, etc.) -->
+            <h4>Your <span>{{ method }}</span> contained: </h4>
+            <!-- 100's in the spans are also placeholders. should be variables that display data -->
+            <p><span id="words">{{ words }} </span> words</p>
+            <p><span id="letters">{{ letters }} </span> letters</p>
+            <p><span id="sentences">{{ sentences }} </span> sentences</p>
+            <p><span id="sentences">{{ lettersperword }} </span> letters/word</p>
+            <p><span id="sentences">{{ wordspersentence }} </span> words/sentence</p>
+            <p><span id="sentences">{{ mostfrequentword }} </span> most frequent</p>
+            <p><span id="sentences">{{ time }} </span> time (s)</p>
+
+        </div>
+    </div>
+</body>
+
+</html>
